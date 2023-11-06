@@ -27,7 +27,7 @@ let songs = [
     },
     {
         title: 'That s Life ',
-        artist: 'Frank Sinatra,
+        artist: 'Frank Sinatra ',
         song_path: 'music/m2.mp3',
         img_path: './assets/images/m2.png'
     },
