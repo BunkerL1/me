@@ -28,8 +28,8 @@ let songs = [
         img_path: './assets/images/m1.png'
     },
     {
-        title: 'MM2',
-        artist: 'By Mixkit 02',
+        title: 'That's Life ',
+        artist: 'Frank Sinatra',
         song_path: 'music/m2.mp3',
         img_path: './assets/images/m2.png'
     },
