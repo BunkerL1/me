@@ -22,8 +22,8 @@ let next_song_index;
 /* ações para acessar e mostas informações sobre as músicas */
 let songs = [
     {
-        title: 'M1',
-        artist: 'By Mixkit 01',
+        title: 'Supergirl',
+        artist: 'Dream Chaos, Della ',
         song_path:'music/m1.mp3',
         img_path: './assets/images/m1.png'
     },
