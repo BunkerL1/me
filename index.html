@@ -1,1 +1,98 @@
-ESTÁ PÁGINA RECEBERÁ ATUALIZAÇÕES,
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notícias da NFL</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .banner img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .news-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="banner">
+            <img src="a.png" alt="NFL Banner">
+        </div>
+    </header>
+    
+    <main>
+        <div class="news-container">
+            <!-- Aqui serão inseridas as notícias dinâmicas -->
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; LeanNFL. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const options = {
+            method: 'GET',
+            url: 'https://nfl-api-data.p.rapidapi.com/nfl-player-info/v1/data',
+            params: {id: '4360644'},
+            headers: {
+                'X-RapidAPI-Key': '577ef32b51mshfc31245a333101fp1cee02jsnf752bcc6bb1b',
+                'X-RapidAPI-Host': 'nfl-api-data.p.rapidapi.com'
+            }
+        };
+
+        const newsContainer = document.querySelector('.news-container');
+
+        axios.request(options)
+            .then(response => {
+                const news = response.data;
+                news.forEach(newsItem => {
+                    const newsElement = document.createElement('div');
+                    newsElement.classList.add('news-item');
+                    newsElement.innerHTML = `
+                        <h2>${newsItem.title}</h2>
+                        <p>${newsItem.content}</p>
+                    `;
+                    newsContainer.appendChild(newsElement);
+                });
+            })
+            .catch(error => {
+                console.error('Erro ao buscar notícias:', error);
+            });
+    </script>
+</body>
+</html>
