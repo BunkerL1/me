@@ -31,6 +31,12 @@
             margin: 0 auto;
         }
 
+        .news-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+
         footer {
             background-color: #333;
             color: #fff;
@@ -65,27 +71,18 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        const options = {
-            method: 'GET',
-            url: 'https://nfl-api-data.p.rapidapi.com/nfl-player-info/v1/data',
-            params: {id: '4360644'},
-            headers: {
-                'X-RapidAPI-Key': '577ef32b51mshfc31245a333101fp1cee02jsnf752bcc6bb1b',
-                'X-RapidAPI-Host': 'nfl-api-data.p.rapidapi.com'
-            }
-        };
-
         const newsContainer = document.querySelector('.news-container');
 
-        axios.request(options)
+        axios.get('https://site.api.espn.com/apis/site/v2/sports/football/nfl/news')
             .then(response => {
-                const news = response.data;
+                const news = response.data.articles;
                 news.forEach(newsItem => {
                     const newsElement = document.createElement('div');
                     newsElement.classList.add('news-item');
                     newsElement.innerHTML = `
-                        <h2>${newsItem.title}</h2>
-                        <p>${newsItem.content}</p>
+                        <h2>${newsItem.headline}</h2>
+                        <p>${newsItem.description}</p>
+                        <a href="${newsItem.links.web.href}" target="_blank">Leia mais</a>
                     `;
                     newsContainer.appendChild(newsElement);
                 });
