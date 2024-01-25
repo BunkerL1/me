@@ -13,12 +13,12 @@
 
         header {
             background-color: #333;
-            padding: 20px 0;
+            padding: 10px 0;
             text-align: center;
         }
 
         .banner img {
-            max-width: 100%;
+            max-width: 80%;
             height: auto;
         }
 
@@ -73,9 +73,15 @@
     <script>
         const newsContainer = document.querySelector('.news-container');
 
-        axios.get('https://site.api.espn.com/apis/site/v2/sports/football/nfl/news')
+        axios.get('https://site.api.espn.com/apis/site/v2/sports/football/nfl/news?region=br&lang=pt')
             .then(response => {
-                const news = response.data.articles;
+                const news = response.data.articles.filter(article => {
+                    // Filtrar as notícias desde setembro de 2023
+                    const articleDate = new Date(article.published);
+                    const september2023 = new Date('2023-09-01');
+                    return articleDate >= september2023;
+                });
+
                 news.forEach(newsItem => {
                     const newsElement = document.createElement('div');
                     newsElement.classList.add('news-item');
