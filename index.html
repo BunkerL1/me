@@ -3,77 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forum sobre Liberdade na Internet</title>
+    <title>ProfileXat</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: black;
+            color: white;
             margin: 0;
             padding: 0;
         }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
+        .profile-header {
+            background-color: #333;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        header h1 {
-            color: #333;
-            margin: 0;
-            padding: 20px 0;
-            border-bottom: 1px solid #ccc;
-        }
-        .manifesto {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-        .manifesto h2 {
-            color: #333;
-            margin-top: 0;
+        .profile-header img {
+            border-radius: 50%;
+            border: 2px solid gold;
         }
-        .manifesto p {
-            color: #666;
-            line-height: 1.6;
+        .profile-header h1 {
+            margin: 10px 0;
+            color: gold;
+        }
+        .profile-info {
+            padding: 20px;
+            background-color: #444;
+            margin: 20px;
+            border-radius: 10px;
+        }
+        .profile-info h2 {
+            color: gold;
+        }
+        .profile-info p {
+            color: white;
         }
     </style>
-    <script>
-        window.addEventListener('load', function() {
-            // Enviar uma solicitação para o script PHP ao carregar a página
-            fetch('https://leanbnk.000webhostapp.com/register_ip.php')
-            .then(response => {
-                if (response.ok) {
-                    console.log('Endereço IP registrado com sucesso!');
-                } else {
-                    console.error('Erro ao registrar endereço IP:', response.statusText);
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao registrar endereço IP:', error);
-            });
-        });
-    </script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Forum sobre Liberdade na Internet</h1>
-        </header>
-        <div class="manifesto">
-            <h2>Manifesto pela Liberdade na Internet</h2>
-            <p>A internet é um espaço de liberdade, criatividade e expressão. Devemos lutar para preservar esse espaço e defender os direitos dos usuários online.</p>
-            <p>A liberdade na internet significa acesso aberto e igual para todos, sem discriminação ou censura. Significa proteção da privacidade e dos dados pessoais dos usuários.</p>
-            <p>Devemos promover a liberdade de expressão online e resistir a tentativas de controle e vigilância. A internet é um recurso global que pertence a todos, e devemos protegê-la como tal.</p>
-            <p>Unidos, podemos construir um futuro onde a liberdade na internet seja garantida para todos os usuários, em todos os lugares do mundo.</p>
-        </div>
+    <div class="profile-header">
+        <img src="profile.jpg" alt="Profile Picture" width="150" height="150">
+        <h1>ProfileXat</h1>
+    </div>
+    <div class="profile-info">
+        <h2>Sobre Mim</h2>
+        <p>Bem-vindo ao meu perfil. Este é um exemplo de uma página de perfil em preto, branco e dourado.</p>
+    </div>
+    <div class="profile-info">
+        <h2>Postagens Recentes</h2>
+        <p>Aqui você pode ver suas postagens recentes.</p>
     </div>
 </body>
 </html>
